@@ -190,6 +190,23 @@ void fsm_mode_auto(void){
 	}
 }
 
+void mode_red_config(void){
+	if(flag_i == 1){
+		flag_i = 0;
+		counter_red = (((++counter_red) == 100) ? 2 : counter_red);
+	}
+	if(flag_s == 1){
+		flag_s = 0;
+		red = counter_red;
+	}
+	if(flag_seg == 1){
+		flag_seg = 0;
+		buffer_led[2] = counter_red / 10;
+		buffer_led[3] = counter_red % 10;
+		toggle7SEG(1);
+	}
+}
+
 //- Global Functions -----------------------------
 void init_fsm_traffic_mode(){
 	status_traffic = MODE_AUTO;
@@ -222,6 +239,7 @@ void fsm_traffic_mode(void){
 			HAL_GPIO_TogglePin(LED_RED_1_GPIO_Port, LED_RED_1_Pin);
 			HAL_GPIO_TogglePin(LED_RED_2_GPIO_Port, LED_RED_2_Pin);
 		}
+		mode_red_config();
 		break;
 	case MODE_AMBER_CONFIG:
 		if(flag_m == 1){
