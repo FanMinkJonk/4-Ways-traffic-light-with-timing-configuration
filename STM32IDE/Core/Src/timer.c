@@ -22,10 +22,21 @@ void init_SoftwareTimer(uint32_t HCLK, uint32_t Prescaler, uint32_t Period){
 }
 
 void set_one_sec_timer(){
-
+	counter_one_sec = 1000/TIMECYCLE;
+	flag_one_sec = 0;
 }
 
 void timer_Run(){
-
+	--counter_one_sec;
+	if(counter_one_sec <= 0){
+		flag_one_sec = 1;
+	}
+	if(counter_one_sec == 750/TIMECYCLE || counter_one_sec == 500/TIMECYCLE ||
+	   counter_one_sec == 250/TIMECYCLE || counter_one_sec <= 0){
+		flag_blinky_led = 1;
+	}
+	if(counter_one_sec == 500/TIMECYCLE || counter_one_sec <= 0){
+		flag_seg = 1;
+	}
 }
 

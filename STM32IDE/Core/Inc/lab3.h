@@ -11,6 +11,9 @@
 //--- Private Include ----------------------------
 
 #include "main.h"
+#include "fsm_input_processing.h"
+#include "fsm_traffic_mode.h"
+#include "input_reading.h"
 
 //--- Variables ----------------------------------
 
@@ -25,8 +28,8 @@ extern uint8_t flag_blinky_led;
 
 //--- Functions Declaration ----------------------
 
-//void init_lab3();
-//void run_lab3();
+void init_lab3(uint32_t Prescaler, uint32_t Period);
+void run_lab3();
 
 //--- Private Defines ----------------------------
 

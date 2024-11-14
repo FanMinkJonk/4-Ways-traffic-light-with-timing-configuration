@@ -1,0 +1,4 @@
+../Core/Src/led_7_segment.c:24:6:display7SEG1	16	static
+../Core/Src/led_7_segment.c:39:6:display7SEG2	16	static
+../Core/Src/led_7_segment.c:55:6:update7SEG	16	static
+../Core/Src/led_7_segment.c:76:6:toggle7SEG	16	static

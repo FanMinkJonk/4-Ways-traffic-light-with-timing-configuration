@@ -80,12 +80,13 @@ void init_amber_config_mode(void){
 }
 
 void init_green_config_mode(void){
+	green 		  = red - amber;
 	buffer_led[0] = 0 / 10;
 	buffer_led[1] = 4 % 10;
 	buffer_led[2] = green / 10;
 	buffer_led[3] = green % 10;
 	flag_seg 	  = 0;
-	counter_green = 0;
+	counter_green = green;
 	flag_blinky_led = 0;
 	toggle7SEG(0);
 	config_leds(0x36);
