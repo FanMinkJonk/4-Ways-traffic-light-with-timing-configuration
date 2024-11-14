@@ -19,9 +19,9 @@ extern uint8_t flag_m;
 extern uint8_t flag_i;
 extern uint8_t flag_s;
 
-extern uint8_t one_sec_flag;
-extern uint8_t seg_flag;
-extern uint8_t blinky_led_flag;
+extern uint8_t flag_one_sec;
+extern uint8_t flag_seg;
+extern uint8_t flag_blinky_led;
 
 //--- Functions Declaration ----------------------
 

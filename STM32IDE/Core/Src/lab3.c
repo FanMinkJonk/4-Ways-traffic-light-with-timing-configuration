@@ -16,9 +16,9 @@ uint8_t flag_m = 0;
 uint8_t flag_i = 0;
 uint8_t flag_s = 0;
 
-uint8_t one_sec_flag 	= 0;
-uint8_t seg_flag 		= 0;
-uint8_t blinky_led_flag = 0;
+uint8_t flag_one_sec 	= 0;
+uint8_t flag_seg 		= 0;
+uint8_t flag_blinky_led = 0;
 
 //--- Functions Definition -----------------------
 
