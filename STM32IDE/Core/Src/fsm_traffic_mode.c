@@ -225,6 +225,24 @@ void mode_amber_config(void){
 	}
 }
 
+void mode_green_config(void){
+	if(flag_i == 1){
+		flag_i = 0;
+		counter_green = (((++counter_green) == 100) ? 1 : counter_green);
+	}
+	if(flag_s == 1){
+		flag_s = 0;
+		green = (red - amber);
+		counter_green = green;
+	}
+	if(flag_seg == 1){
+		flag_seg = 0;
+		buffer_led[2] = counter_green / 10;
+		buffer_led[3] = counter_green % 10;
+		toggle7SEG(1);
+	}
+}
+
 //- Global Functions -----------------------------
 void init_fsm_traffic_mode(){
 	status_traffic = MODE_AUTO;
@@ -287,6 +305,7 @@ void fsm_traffic_mode(void){
 			HAL_GPIO_TogglePin(LED_GREEN_1_GPIO_Port, LED_GREEN_1_Pin);
 			HAL_GPIO_TogglePin(LED_GREEN_2_GPIO_Port, LED_GREEN_2_Pin);
 		}
+		mode_green_config();
 		break;
 	default:
 		break;
