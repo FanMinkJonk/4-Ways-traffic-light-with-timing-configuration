@@ -39,13 +39,13 @@ void config_leds(uint8_t pattern){
 
 //- Init Traffic Modes ---------------------------
 void init_auto_mode(void){
-	red_counter   = red;
-	amber_counter = amber;
-	green_counter = green;
-	buffer_led[0] = red_counter / 10;
-	buffer_led[1] = red_counter % 10;
-	buffer_led[2] = green_counter / 10;
-	buffer_led[3] = green_counter % 10;
+	counter_red   = red;
+	counter_amber = amber;
+	counter_green = green;
+	buffer_led[0] = counter_red / 10;
+	buffer_led[1] = counter_red % 10;
+	buffer_led[2] = counter_green / 10;
+	buffer_led[3] = counter_green % 10;
 	flag_l 		  = 0;
 	flag_seg 	  = 0;
 	toggle7SEG(0);
@@ -59,7 +59,7 @@ void init_red_config_mode(void){
 	buffer_led[2] = red / 10;
 	buffer_led[3] = red % 10;
 	flag_seg 	  = 0;
-	red_counter   = red;
+	counter_red   = red;
 	flag_blinky_led = 0;
 	toggle7SEG(0);
 	config_leds(0x1b);
@@ -72,7 +72,7 @@ void init_amber_config_mode(void){
 	buffer_led[2] = amber / 10;
 	buffer_led[3] = amber % 10;
 	flag_seg 	  = 0;
-	amber_counter = amber;
+	counter_amber = amber;
 	flag_blinky_led = 0;
 	toggle7SEG(0);
 	config_leds(0x2d);
@@ -85,7 +85,7 @@ void init_green_config_mode(void){
 	buffer_led[2] = green / 10;
 	buffer_led[3] = green % 10;
 	flag_seg 	  = 0;
-	green_counter = 0;
+	counter_green = 0;
 	flag_blinky_led = 0;
 	toggle7SEG(0);
 	config_leds(0x36);
@@ -99,21 +99,21 @@ void fsm_mode_auto(void){
 		config_leds(0x1e);
 		if(flag_one_sec == 1){
 			set_one_sec_timer();
-			flag_l = (--green_counter == 0);
-			--red_counter;
+			flag_l = (--counter_green == 0);
+			--counter_red;
 		}
 		if(flag_l == 1){
 			flag_l = 0;
 			status_light = STATUS_RED_AMBER;
-			green_counter = green;
+			counter_green = green;
 			break;
 		}
 		if(flag_seg == 1){
 			flag_seg = 0;
-			buffer_led[0] = red_counter / 10;
-			buffer_led[1] = red_counter % 10;
-			buffer_led[2] = green_counter / 10;
-			buffer_led[3] = green_counter % 10;
+			buffer_led[0] = counter_red / 10;
+			buffer_led[1] = counter_red % 10;
+			buffer_led[2] = counter_green / 10;
+			buffer_led[3] = counter_green % 10;
 			toggle7SEG(1);
 		}
 		break;
@@ -121,22 +121,22 @@ void fsm_mode_auto(void){
 		config_leds(0x1d);
 		if(flag_one_sec == 1){
 			set_one_sec_timer();
-			flag_l = (--amber_counter == 0);
-			--red_counter;
+			flag_l = (--counter_amber == 0);
+			--counter_red;
 		}
 		if(flag_l == 1){
 			flag_l = 0;
 			status_light = STATUS_GREEN_RED;
-			red_counter = red;
-			amber_counter = amber;
+			counter_red = red;
+			counter_amber = amber;
 			break;
 		}
 		if(flag_seg == 1){
 			flag_seg = 0;
-			buffer_led[0] = red_counter / 10;
-			buffer_led[1] = red_counter % 10;
-			buffer_led[2] = amber_counter / 10;
-			buffer_led[3] = amber_counter % 10;
+			buffer_led[0] = counter_red / 10;
+			buffer_led[1] = counter_red % 10;
+			buffer_led[2] = counter_amber / 10;
+			buffer_led[3] = counter_amber % 10;
 			toggle7SEG(1);
 		}
 		break;
@@ -144,21 +144,21 @@ void fsm_mode_auto(void){
 		config_leds(0x33);
 		if(flag_one_sec == 1){
 			set_one_sec_timer();
-			flag_l = (--green_counter == 0);
-			--red_counter;
+			flag_l = (--counter_green == 0);
+			--counter_red;
 		}
 		if(flag_l == 1){
 			flag_l = 0;
 			status_light = STATUS_AMBER_RED;
-			green_counter = green;
+			counter_green = green;
 			break;
 		}
 		if(flag_seg == 1){
 			flag_seg = 0;
-			buffer_led[0] = green_counter / 10;
-			buffer_led[1] = green_counter % 10;
-			buffer_led[2] = red_counter / 10;
-			buffer_led[3] = red_counter % 10;
+			buffer_led[0] = counter_green / 10;
+			buffer_led[1] = counter_green % 10;
+			buffer_led[2] = counter_red / 10;
+			buffer_led[3] = counter_red % 10;
 			toggle7SEG(1);
 		}
 		break;
@@ -166,22 +166,22 @@ void fsm_mode_auto(void){
 		config_leds(0x2b);
 		if(flag_one_sec == 1){
 			set_one_sec_timer();
-			flag_l = (--amber_counter == 0);
-			--red_counter;
+			flag_l = (--counter_amber == 0);
+			--counter_red;
 		}
 		if(flag_l == 1){
 			flag_l = 0;
 			status_light = STATUS_RED_GREEN;
-			red_counter = red;
-			amber_counter = amber;
+			counter_red = red;
+			counter_amber = amber;
 			break;
 		}
 		if(flag_seg == 1){
 			flag_seg = 0;
-			buffer_led[0] = amber_counter / 10;
-			buffer_led[1] = amber_counter % 10;
-			buffer_led[2] = red_counter / 10;
-			buffer_led[3] = red_counter % 10;
+			buffer_led[0] = counter_amber / 10;
+			buffer_led[1] = counter_amber % 10;
+			buffer_led[2] = counter_red / 10;
+			buffer_led[3] = counter_red % 10;
 			toggle7SEG(1);
 		}
 		break;
